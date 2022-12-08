@@ -78,7 +78,7 @@ export default function ComingSoon() {
         {twitter ? `已绑定 ${twitter}` : 'Twitter'}
       </Button>
       <Button disabled={account == undefined || discord} onClick={handleDiscordAuth}>
-        Discord
+        {discord ? `已绑定 ${discord}` : 'Twitter'}
       </Button>
     </Stack>
   )
