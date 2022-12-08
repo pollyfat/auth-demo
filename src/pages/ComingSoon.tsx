@@ -27,9 +27,9 @@ export default function ComingSoon() {
 
   useEffect(() => {
     axios.post(DOMAIN + '/auth/demo/account/query', requestParams).then(resp => {
-      console.log('aaa', resp.data.data[0].TwitterName)
-      setTwitter(resp.data.data[0].TwitterName)
-      setDiscord(resp.data.data[1].Discorename)
+      console.log('aaa', resp.data.data.twitterName)
+      setTwitter(resp.data.data.twitterName)
+      setDiscord(resp.data.data.discordName)
     })
   }, [requestParams])
 
