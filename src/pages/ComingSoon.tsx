@@ -12,7 +12,7 @@ export default function ComingSoon() {
   const [token, setToken] = useLoginToken()
   const [twitter, setTwitter] = useState()
   const [discord, setDiscord] = useState()
-  const [isFollow, setIsFollow] = useState(true)
+  const [isFollow, setIsFollow] = useState()
   const requestParams = useMemo(() => {
     return {
       account: account,
