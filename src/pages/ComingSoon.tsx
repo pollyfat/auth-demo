@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material'
+import { Box, Button, Stack } from '@mui/material'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { useActiveWeb3React } from '../hooks'
@@ -12,6 +12,7 @@ export default function ComingSoon() {
   const [token, setToken] = useLoginToken()
   const [twitter, setTwitter] = useState()
   const [discord, setDiscord] = useState()
+  const [isFollow, setIsFollow] = useState(true)
   const requestParams = useMemo(() => {
     return {
       account: account,
@@ -30,6 +31,7 @@ export default function ComingSoon() {
       console.log('aaa', resp.data.data.twitterName)
       setTwitter(resp.data.data.twitterName)
       setDiscord(resp.data.data.discordName)
+      setIsFollow(resp.data.data.isFollow)
     })
   }, [requestParams])
 
@@ -63,6 +65,10 @@ export default function ComingSoon() {
     })
   }
 
+  const handleFollow = () => {
+    window.open('https://twitter.com/', '_blank')
+  }
+
   const handleDiscordAuth = () => {
     console.log('requestParams', requestParams)
     axios.post(DOMAIN + '/auth/demo/discord/url', requestParams).then(resp => {
@@ -74,9 +80,14 @@ export default function ComingSoon() {
 
   return (
     <Stack spacing={20}>
-      <Button disabled={account == undefined || twitter} onClick={handleTwitterAuth}>
-        {twitter ? `已绑定 ${twitter}` : 'Twitter'}
-      </Button>
+      <Box display={'flex'}>
+        <Button disabled={account == undefined || twitter} onClick={handleTwitterAuth}>
+          {twitter ? `已绑定 ${twitter}` : 'Twitter'}
+        </Button>
+        <Button disabled={isFollow} onClick={handleFollow}>
+          {isFollow ? '已关注推特' : '去关注'}
+        </Button>
+      </Box>
       <Button disabled={account == undefined || discord} onClick={handleDiscordAuth}>
         {discord ? `已绑定 ${discord}` : 'Twitter'}
       </Button>
